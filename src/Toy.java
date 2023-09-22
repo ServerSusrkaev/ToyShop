@@ -79,10 +79,10 @@ public class Toy {
                    System.out.print("Введите новое значение веса игрушки (в формате 0.0): ");
                    String newWeight = input.next();
 
-//                   sb.append(line);
-//                   sb.setCharAt(line.lastIndexOf("=") + 1, newWeight.charAt(0));
-//                   sb.setCharAt(line.lastIndexOf("=") + 3, newWeight.charAt(2));
-//                   sb.append("\n");
+                   sb.append(line);
+                   sb.setCharAt(line.lastIndexOf("=") + 1, newWeight.charAt(0));
+                   sb.setCharAt(line.lastIndexOf("=") + 3, newWeight.charAt(2));
+                   sb.append("\n");
                }else{
                    sb.append(line + "\n");
                }
