@@ -40,7 +40,7 @@ public class Toy {
             double toyWeight = input.nextDouble();
             toy.setWeight(toyWeight);
 
-            Writer writer = new FileWriter("ToysList.txt", true);
+            Writer writer = new FileWriter("src/ToysList.txt", true);
             writer.append(toy + "\n");
             writer.close();
 
@@ -55,7 +55,7 @@ public class Toy {
 
    }
    public static void ShowToysList(){
-       try(BufferedReader br = new BufferedReader(new FileReader("ToysList.txt"))){
+       try(BufferedReader br = new BufferedReader(new FileReader("src/ToysList.txt"))){
            String line;
            while ((line = br.readLine()) != null){
                System.out.println(line);
@@ -69,7 +69,7 @@ public class Toy {
        System.out.print("Введите ID игрушки: ");
        int toyID = input.nextInt();
 
-       try(BufferedReader br = new BufferedReader(new FileReader("ToysList.txt"))){
+       try(BufferedReader br = new BufferedReader(new FileReader("src/ToysList.txt"))){
            String line;
            StringBuilder sb = new StringBuilder();
            while ((line = br.readLine()) != null){
@@ -87,7 +87,7 @@ public class Toy {
                    sb.append(line + "\n");
                }
            }
-           Writer writer = new FileWriter("ToysList.txt");
+           Writer writer = new FileWriter("src/ToysList.txt");
            writer.append(sb);
            writer.close();
        }catch (IOException e){
