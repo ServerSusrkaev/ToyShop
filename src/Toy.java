@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Toy {
@@ -7,18 +8,10 @@ public class Toy {
    int quantity;
    double weight;
 
-   public void setId(int id) {
-        this.id = id;
-    }
-   public void setName(String name) {
-        this.name = name;
-    }
-   public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-   public void setWeight(double weight) {
-        this.weight = weight;
-    }
+   public void setId(int id) {this.id = id;}
+   public void setName(String name) {this.name = name;}
+   public void setQuantity(int quantity) {this.quantity = quantity;}
+   public void setWeight(double weight) {this.weight = weight;}
 
    public static void AddToy() throws IOException {
        Toy toy = new Toy();
@@ -65,6 +58,7 @@ public class Toy {
        }
    }
    public static void ChangeToysWeight(){
+       ArrayList arrayList = new ArrayList();
        Scanner input = new Scanner(System.in);
        System.out.print("Введите ID игрушки: ");
        int toyID = input.nextInt();
@@ -74,17 +68,20 @@ public class Toy {
            StringBuilder sb = new StringBuilder();
            while ((line = br.readLine()) != null){
                if(Character.digit(line.charAt(3), 10) == toyID){
+                   StringBuilder tempLine = new StringBuilder(line);
 
-                   System.out.println("Текущая информация об игрушке: " + line);
+                   System.out.println("Текущая информация об игрушке:");
+                   System.out.println(line);
                    System.out.print("Введите новое значение веса игрушки (в формате 0.0): ");
                    String newWeight = input.next();
 
-                   sb.append(line);
-                   sb.setCharAt(line.lastIndexOf("=") + 1, newWeight.charAt(0));
-                   sb.setCharAt(line.lastIndexOf("=") + 3, newWeight.charAt(2));
+                   tempLine.replace(line.lastIndexOf("=") + 1, line.lastIndexOf("=") + 4,newWeight);
+
+                   sb.append(tempLine);
                    sb.append("\n");
                }else{
-                   sb.append(line + "\n");
+                   sb.append(line);
+                   sb.append("\n");
                }
            }
            Writer writer = new FileWriter("src/ToysList.txt");
@@ -94,6 +91,7 @@ public class Toy {
            e.printStackTrace();
        }
 }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
