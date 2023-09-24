@@ -27,6 +27,7 @@ public class Toy {
    public static void AddToy() throws IOException {
        BufferedReader br = new BufferedReader(new FileReader("src/ToysID.txt"));
        int toysIdCounter =Integer.parseInt(br.readLine());
+       toysIdCounter += 1;
        br.close();
 
        Toy toy = new Toy();
