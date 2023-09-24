@@ -7,15 +7,15 @@ import java.util.PriorityQueue;
 import java.util.Scanner;
 
 public class Toy {
-   int id;
+   String id;
    String name;
-   int quantity;
-   int weight;
+   String quantity;
+   String weight;
 
-   public void setId(int id) {this.id = id;}
+   public void setId(String id) {this.id = id;}
    public void setName(String name) {this.name = name;}
-   public void setQuantity(int quantity) {this.quantity = quantity;}
-   public void setWeight(int weight) {this.weight = weight;}
+   public void setQuantity(String quantity) {this.quantity = quantity;}
+   public void setWeight(String weight) {this.weight = weight;}
 
     @Override
     public String toString() {
@@ -25,29 +25,42 @@ public class Toy {
     }
 
    public static void AddToy() throws IOException {
+       BufferedReader br = new BufferedReader(new FileReader("src/ToysID.txt"));
+       int toysIdCounter =Integer.parseInt(br.readLine());
+       br.close();
+
        Toy toy = new Toy();
        Scanner input = new Scanner(System.in);
         while (true){
-            System.out.print("Введите id ишрушки: ");
-            int toyId = input.nextInt();
-            toy.setId(toyId);
 
+            toy.setId(Integer.toString(toysIdCounter));
+            System.out.print("ID ишрушки: " + toysIdCounter + "\n");
 
-            System.out.print("Введите название ишрушки: ");
+            System.out.print("Введите название игрушки: ");
             String toyName = input.next();
             toy.setName(toyName);
 
             System.out.print("Введите количество ишрушек: ");
-            int toyQuantity = input.nextInt();
-            toy.setQuantity(toyQuantity);
+            String toyQuantity = input.next();
+            if(isNumeric(toyQuantity)){
+                toy.setQuantity(toyQuantity);
+            }else{
+                System.out.println("Введено не коректоное значение! Повторите попытку.");
+                AddToy();
+            }
 
-            System.out.print("Введите вес ишрушки: ");
-            int toyWeight = input.nextInt();
-            toy.setWeight(toyWeight);
+            System.out.print("Введите вес ишрушки (в формате 0.0): ");
+            String toyWeight = input.next();
+            if(isDouble(toyWeight)){
+                toy.setWeight(toyWeight);
+            }else{
+                System.out.println("Введено не коректоное значение! Повторите попытку.");
+                AddToy();
+            }
 
-            Writer writer = new FileWriter("src/ToysList.txt", true);
-            writer.append(toy + "\n");
-            writer.close();
+            Writer writer1 = new FileWriter("src/ToysList.txt", true);
+            writer1.append(toy + "\n");
+            writer1.close();
 
             System.out.println("Ввести еще одну игрушку? (Да - 'д' / Нет - 'н') ");
             String choice = input.next();
@@ -56,6 +69,10 @@ public class Toy {
                 System.out.println();
                 Main.Start();
             }
+            toysIdCounter += 1;
+            Writer writer2 = new FileWriter("src/ToysID.txt");
+            writer2.append(Integer.toString(toysIdCounter));
+            writer2.close();
         }
 
    }
@@ -114,10 +131,32 @@ public class Toy {
                writer.append(arrayList.get(index) + "\n");
                writer.close();
                arrayList.remove(index);
-               System.out.println(arrayList);
+               System.out.println("Игрушки оставшиеся в списке: " + arrayList);
+
+               System.out.println("Желаете продолжить? (ДА -> 'д'/ НЕТ -> 'н')");
+               String choice = input.next();
+               if(choice.equals("н")){Main.Start();}
+
            }
        }catch(IOException e){
            e.printStackTrace();
        }
    }
+
+   public static boolean isNumeric(String value){
+       try {
+           Integer.parseInt(value);
+           return true;
+       }catch (NumberFormatException e){
+           return false;
+       }
+   }
+   public static boolean isDouble(String value){
+        try {
+            Double.parseDouble(value);
+            return true;
+        }catch (NumberFormatException e){
+            return false;
+        }
+    }
 }
