@@ -8,7 +8,7 @@ public class Main {
     public static void Start() throws IOException {
         while (true){
             System.out.println("ВЫБЕРИТЕ ОПЕРАЦИЮ: \n" +
-                                "- Добавит игрушку:        - 1;\n" +
+                                "- Добавить игрушку:       - 1;\n" +
                                 "- Вывести список игрушек: - 2;\n" +
                                 "- Изменить вес игрушки:   - 3;\n" +
                                 "- Запустить розыгрыш:     - 4;\n" +
@@ -29,8 +29,9 @@ public class Main {
                     Toy.ChangeToysWeight();
                     break;
                 case 4:
-                    System.out.println("Операция запуска розыгрыша игрушек:");
-                     break;
+                    System.out.println("Розыгрыш призовой игрушки:");
+                    Toy.PrizeDrow();
+                    break;
                 case 5:
                     System.out.println("Работа приложения завершена:");
                     System.exit(1);
